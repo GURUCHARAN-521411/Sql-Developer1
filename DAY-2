@@ -1,0 +1,25 @@
+1. Table Design with Correct Data Types & Constraints
+
+
+SQL Script – Table Creation
+CREATE DATABASE  intern_training_db;
+USE intern_training_db;
+
+CREATE TABLE students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    date_of_birth DATE NOT NULL,
+    gender CHAR(1),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+2. Explanation of Constraints (Documentation)
+Constraint	Purpose
+PRIMARY KEY-	Uniquely identifies each student
+AUTO_INCREMENT-	Automatically generates student IDs
+NOT NULL	-Prevents missing essential data
+UNIQUE	-Prevents duplicate email records
+DEFAULT	-Automatically assigns timestamp
