@@ -1,0 +1,72 @@
+Filtering Data Using WHERE, AND, OR, LIKE 
+
+
+1 .The WHERE Clause
+
+Example
+SELECT * 
+FROM students
+WHERE age = 20;
+ > Returns only students whose age is 20.
+
+2 .Using AND
+SELECT * 
+FROM students
+WHERE age = 20
+AND course = 'BCA';
+> Returns students who are 20 years old AND enrolled in BCA.
+
+3 . Using OR 
+SELECT * 
+FROM students
+WHERE course = 'BCA'
+OR course = 'BTech';
+> Returns students enrolled in BCA OR BTech.
+
+4 .The LIKE Operator
+
+Wildcards
+Symbol	Meaning
+%	Any number of characters
+_	Exactly one character
+Starts With
+SELECT * 
+FROM students
+WHERE name LIKE 'A%';
+>  Names starting with A
+
+Ends With
+SELECT * 
+FROM students
+WHERE name LIKE '%n';
+> Names ending with n
+
+Contains
+SELECT * 
+FROM students
+WHERE name LIKE '%ar%';
+> Names containing "ar"
+
+Fixed Length Pattern
+SELECT * 
+FROM students
+WHERE name LIKE 'R___';
+>  Names starting with R and exactly 4 letters
+
+5 .Combining AND & OR 
+SELECT *
+FROM students
+WHERE (course = 'BCA' OR course = 'BTech')
+AND age >= 20;
+> Returns students in BCA or BTech who are at least 20 years old.
+
+6 . Real-World Example
+SELECT name, age, course
+FROM students
+WHERE age BETWEEN 18 AND 22
+AND name LIKE '%a%';
+> Students aged 18–22 whose name contains 'a'
+
+
+
+
