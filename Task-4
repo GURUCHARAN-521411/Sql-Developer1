@@ -1,0 +1,62 @@
+Task 4: Sorting and Limiting Data (MySQL)
+
+
+1.Sorting Data with ORDER BY
+Basic sorting
+SELECT * FROM students
+ORDER BY name;
+
+Sorts records by name in ascending order (default).
+
+Descending order
+SELECT * FROM students
+ORDER BY name DESC;
+Sorting by multiple columns
+SELECT * FROM students
+ORDER BY department ASC, marks DESC;
+
+First sorts by department, then by highest marks within each department.
+
+
+2. Limiting Rows with LIMIT
+Get first N records
+SELECT * FROM students
+LIMIT 5;
+
+Returns only 5 rows.
+
+Pagination using LIMIT with OFFSET
+SELECT * FROM students
+LIMIT 5 OFFSET 5;
+
+Skips first 5 rows, shows next 5.
+
+Alternate (common MySQL syntax):
+
+SELECT * FROM students
+LIMIT 5, 5;
+
+ LIMIT offset, count
+
+
+3. Sorting + Limiting Together (Very Common)
+Top 3 highest scorers
+SELECT name, marks
+FROM students
+ORDER BY marks DESC
+LIMIT 3;
+Latest 10 records by date
+SELECT *
+FROM students
+ORDER BY created_at DESC
+LIMIT 10;
+
+
+4. Sorting with Conditions
+SELECT *
+FROM students
+WHERE department = 'Computer Science'
+ORDER BY marks DESC
+LIMIT 5;
+
+Top 5 CS students by marks.
