@@ -1,0 +1,82 @@
+
+Task 5: Aggregate Functions & GROUP BY
+Objective
+Learn how to summarize data using aggregate functions and organize results using GROUP BY.
+
+Common Aggregate Functions
+Function	Purpose
+COUNT()	Counts rows
+SUM()	Adds values
+AVG()	Calculates average
+MIN()	Finds minimum
+MAX()	Finds maximum
+
+
+Sample Table
+Assume this table exists:
+
+students
+
+
+
+You said:
+Task 5: Aggregate Functions & GROUP BY
+Tools:
+MySQL Workbench
+ChatGPT said:
+Here’s a clear, practical Task 5 you can run directly in MySQL Workbench, continuing your SQL learning path 👇
+
+Task 5: Aggregate Functions & GROUP BY
+Objective
+Learn how to summarize data using aggregate functions and organize results using GROUP BY.
+
+Common Aggregate Functions
+Function	Purpose
+COUNT()	Counts rows
+SUM()	Adds values
+AVG()	Calculates average
+MIN()	Finds minimum
+MAX()	Finds maximum
+Sample Table
+Assume this table exists:
+
+students
+
+
+1. Count total students
+
+SELECT COUNT(*) AS total_students
+FROM students;
+
+2. Find average marks of all students
+SELECT AVG(marks) AS average_marks
+FROM students;
+
+3. Find highest and lowest marks
+SELECT 
+    MAX(marks) AS highest_marks,
+    MIN(marks) AS lowest_marks
+FROM students;
+
+4. Count students per course (GROUP BY)
+SELECT course, COUNT(*) AS student_count
+FROM students
+GROUP BY course;
+
+5. Average marks per course
+SELECT course, AVG(marks) AS avg_marks
+FROM students
+GROUP BY course;
+
+6. Total marks per course
+SELECT course, SUM(marks) AS total_marks
+FROM students
+GROUP BY course;
+
+7. Filter grouped results using HAVING
+Find courses with average marks greater than 80
+
+SELECT course, AVG(marks) AS avg_marks
+FROM students
+GROUP BY course
+HAVING AVG(marks) > 80;
