@@ -1,0 +1,44 @@
+-- 1. Create Sample Tables
+CREATE TABLE Departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+
+CREATE TABLE Employees (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    dept_id INT,
+    salary DECIMAL(10, 2),
+    FOREIGN KEY (dept_id) REFERENCES Departments(dept_id)
+);
+
+-- Insert Sample Data
+INSERT INTO Departments VALUES (1, 'IT'), (2, 'HR');
+INSERT INTO Employees VALUES (101, 'Alice', 1, 90000), (102, 'Bob', 2, 60000);
+
+-- 2. Create a Complex View (Joining Employees and Departments)
+CREATE OR REPLACE VIEW v_employee_details AS
+SELECT 
+    e.emp_id, 
+    e.name AS employee_name, 
+    d.dept_name, 
+    e.salary
+FROM Employees e
+JOIN Departments d ON e.dept_id = d.dept_id;
+
+-- 3. Query Data Directly from the View
+SELECT * FROM v_employee_details;
+
+-- 4. Apply Filtering and Sorting on Views
+SELECT * FROM v_employee_details 
+WHERE salary > 70000 
+ORDER BY employee_name;
+
+-- 5. Limitations: Inserting Data (Typically only works on single-table views)
+INSERT INTO v_employee_details (emp_id, employee_name, dept_name, salary) 
+VALUES (103, 'Charlie', 'IT', 75000); 
+-- Error: Cannot modify multiple base tables
+
+-- 6. Drop and Recreate View Safely
+DROP VIEW IF EXISTS v_employee_details;
+
