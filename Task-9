@@ -1,0 +1,98 @@
+
+
+
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department_id INT,
+    salary DECIMAL(10, 2)
+);
+
+INSERT INTO employees VALUES (1, 'Alice', 1, 60000);
+INSERT INTO employees VALUES (2, 'Bob', 2, 75000);
+INSERT INTO employees VALUES (3, 'Charlie', 1, 50000);
+INSERT INTO employees VALUES (4, 'David', 3, 90000);
+INSERT INTO employees VALUES (5, 'Eve', 2, 75000);
+INSERT INTO employees VALUES (6, 'Frank', 1, 62000);
+
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+INSERT INTO departments VALUES (1, 'Engineering');
+INSERT INTO departments VALUES (2, 'Sales');
+INSERT INTO departments VALUES (3, 'Executive');
+
+
+
+SELECT
+    name,
+    salary
+FROM
+    employees
+WHERE
+    salary > (SELECT AVG(salary) FROM employees);
+
+-- 2. Subquery in the FROM clause 
+
+
+SELECT
+    AVG(dept_salary) AS avg_sales_salary
+FROM
+    (SELECT salary FROM employees e
+     JOIN departments d ON e.department_id = d.department_id
+     WHERE d.department_name = 'Sales') AS sales_salaries;
+
+
+
+-- 3. Subquery in the SELECT clause 
+
+
+SELECT
+    name,
+    salary,
+    (SELECT AVG(e2.salary)
+     FROM employees e2
+     WHERE e2.department_id = e1.department_id) AS department_average_salary
+FROM
+    employees e1;
+
+-- 4. Using IN/EXISTS with subqueries
+
+
+
+ALTER TABLE departments ADD COLUMN city VARCHAR(100);
+UPDATE departments SET city = 'San Francisco' WHERE department_id IN (1, 2);
+UPDATE departments SET city = 'New York' WHERE department_id = 3;
+
+
+-- Using IN:
+SELECT name FROM employees WHERE department_id IN (SELECT department_id FROM departments WHERE city = 'San Francisco');
+
+-- Using EXISTS 
+SELECT name FROM employees e WHERE EXISTS (
+    SELECT 1 FROM departments d
+    WHERE e.department_id = d.department_id AND d.city = 'San Francisco'
+);
+
+-- 5. Subquery that returns multiple rows
+
+
+SELECT
+    name
+FROM
+    employees
+WHERE
+    department_id IN (1, 2);
+
+-- 6. Debugging example
+SELECT
+    name,
+    salary
+FROM
+    employees
+WHERE
+    salary = (SELECT DISTINCT salary FROM employees WHERE department_id = 2);
+-- Use IN instead of '=' to fix this error.
+
